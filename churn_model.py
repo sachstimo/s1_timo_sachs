@@ -16,7 +16,7 @@ def load_data():
 
     # Binary columns transformation
     bin_cols = ['International plan', 'Voice mail plan']
-    X[bin_cols] = X[bin_cols].applymap(lambda x: 1 if x == 'Yes' else 0)
+    X[bin_cols] = X[bin_cols].map(lambda x: 1 if x == 'Yes' else 0)
 
     # Feature engineering
     X['Total minutes'] = X[['Total day minutes', 'Total eve minutes', 'Total night minutes', 'Total intl minutes']].sum(axis=1)
