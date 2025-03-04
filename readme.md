@@ -22,8 +22,8 @@ A data-driven solution for telecom customer churn prediction and management.
 ## Project Structure
 
 - **app.py**: Main Streamlit application with dashboard interface
-- **churn_model.py**: Contains model training and data loading functions
-- **email_alert.py**: Email notification functionality
+- **churn_model.py**: Contains model training and data loading functions; The chosen model is XGBoost which has been proven to be the most precise when comparing several models and hyperparamters in the course of another lecture (AI2 by Marc Torrens), while using the same underlying dataset
+- **email_alert.py**: Code to provide Email notification functionality (SMTP server setup etc.)
 - **DATA/**: Contains the dataset and company logo
 - **xgb_model_trained.pkl**: Saved trained model (output from churn_model.py)
 
@@ -67,6 +67,6 @@ A data-driven solution for telecom customer churn prediction and management.
 
 ## Future Enhancements
 
+- Include (or make up) real customer names (e.g. B2B)
 - Real-time data integration
 - More granular geographic analysis
-- Include (or make up) customer names
