@@ -42,7 +42,7 @@ with st.sidebar:
         tn_profit = 0
 
         #### Load pre-trained model
-        model_file = './xgb_model_trained.pkl'
+        model_file = './OUTPUT/xgb_model_trained.pkl'
         if not os.path.exists(model_file):
             st.write("No existing model found. Training a new model...")
             model = train_and_save_model(X, y, tp_profit, fp_loss, fn_loss, tn_profit)
@@ -52,9 +52,8 @@ with st.sidebar:
             
     st.sidebar.write("## Navigation")
     st.sidebar.write("[🗺️ Churn Map](#churn-probability-by-state)")
-    st.sidebar.write("[📊 Churn & RNR Table](#Churn-risk-and-retainable-net-revenue-by-state)")
     st.sidebar.write("[🔍 Analysis by State](#analysis-by-state)")
-    st.sidebar.write("[🎯 Model Metrics](#model-metrics)")
+    st.sidebar.write("[🎯 Model Metrics](#model-performance-metrics)")
 
     # Place model retrain button if required (e.g. more production data coming in at some point)
     if st.button('Retrain Model'):
@@ -196,7 +195,7 @@ with dd_state:
 
     st.subheader("🔔 Subscribe to new churn alerts")
     st.write("We can notify you when new customers are at risk of churning. Would you like to subscribe?")
-    email = st.text_input("Enter your email address", on_change= True)
+    email = st.text_input("Enter your email address")
     subscribe = st.button("Subscribe")
     if subscribe:
         if email:

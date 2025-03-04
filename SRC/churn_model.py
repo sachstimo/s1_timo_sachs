@@ -55,7 +55,7 @@ def train_and_save_model(X, y, tp_profit, fp_loss, fn_loss, tn_profit):
     profit_scorer = make_scorer(profit_score, greater_is_better=True, tp_profit=tp_profit, fp_loss=fp_loss, fn_loss=fn_loss, tn_profit=tn_profit)
 
     # The paramater grid is loaded from a JSON file with the parameters set to the best values found in the previous notebook
-    param_grids = json.load(open('./hyperparams.json', 'r'))
+    param_grids = json.load(open('./OUTPUT/hyperparams.json', 'r'))
 
     # Train-test split
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
@@ -72,5 +72,5 @@ def train_and_save_model(X, y, tp_profit, fp_loss, fn_loss, tn_profit):
     grid.fit(X_train, y_train)
     
     # Save the best model
-    joblib.dump(grid.best_estimator_, './xgb_model_trained.pkl')
+    joblib.dump(grid.best_estimator_, './OUTPUT/xgb_model_trained.pkl')
     return grid.best_estimator_
