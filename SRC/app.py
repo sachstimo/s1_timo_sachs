@@ -4,9 +4,11 @@ import numpy as np
 import joblib
 import os
 import plotly.express as px
+from sklearn.metrics import accuracy_score, recall_score, precision_score, confusion_matrix
 # Importing external functions
 from churn_model import load_data, train_and_save_model
 from email_alert import send_email
+
 
 X, y, state_area = load_data()
 
@@ -55,10 +57,10 @@ with st.sidebar:
             
     st.sidebar.write("## Navigation")
     st.sidebar.write("[🗺️ Churn Map](#churn-probability-by-state)")
-    st.sidebar.write("[📊 Churn Analysis](#churn-risk-by-state)")
-    st.sidebar.write("[🔍 State Analysis](#analysis-by-state)")
+    st.sidebar.write("[📊 Churn & Profit Table](#churn-risk-and-potential-profit-by-state)")
+    st.sidebar.write("[🔍 Analysis by State](#analysis-by-state)")
+    st.sidebar.write("[🎯 Model Metrics](#model-metrics)")
 
-        
     #### Predict churn probabilities
     churn_probabilities = model.predict_proba(X)[:, 1]
 
@@ -203,3 +205,24 @@ with dd_state:
                 st.error(f"Failed to send email: {e}")
         else:
             st.error("Please enter a valid email address.")
+
+
+with st.container():
+    # Calculate metrics
+    accuracy = accuracy_score(y, binary_predictions)
+    recall = recall_score(y, binary_predictions)
+    precision = precision_score(y, binary_predictions)
+    conf_matrix = confusion_matrix(y, binary_predictions)
+    f1_score = 2 * (precision * recall) / (precision + recall)
+
+    # Display metrics
+    st.subheader("Model Performance Metrics")
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        st.metric("Accuracy", f"{accuracy:.2%}")
+    with col2:
+        st.metric("Recall", f"{recall:.2%}")
+    with col3:
+        st.metric("Precision", f"{precision:.2%}")
+    with col4:
+        st.metric("F1 Score", f"{f1_score:.2%}")
