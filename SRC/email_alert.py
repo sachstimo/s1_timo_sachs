@@ -14,8 +14,8 @@ smtp_server = os.getenv('SMTP_SERVER')
 
 def send_email(selected_state, filtered_results, rec_email):
     if not rec_email:
-        st.error("Please enter a valid email address.")
-        return
+        print("Please enter a valid email address.")
+        return False
 
     msg = MIMEMultipart('alternative')
     msg['From'] = sender_email

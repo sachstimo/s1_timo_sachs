@@ -64,7 +64,7 @@ def train_and_save_model(X, y, tp_profit, fp_loss, fn_loss, tn_profit):
     skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
     pipeline = Pipeline([
         ('scaler', StandardScaler()),
-        ('classifier', XGBClassifier(use_label_encoder=False, eval_metric='logloss'))
+        ('classifier', XGBClassifier(eval_metric='logloss'))
     ])
 
     grid = GridSearchCV(estimator=pipeline, param_grid=param_grids, cv=skf, scoring=profit_scorer, verbose=2, error_score='raise')
